@@ -8,7 +8,7 @@ BEGIN_ACADO;
 
     acadoSet('problemname', 'full_dynamics_hovering');
 
-    DifferentialState X Y Z Xd Yd Zd phi theta psi p q r;                              % z and zDot
+    DifferentialState X Y Z Xd Yd Zd phi theta psi p q r;         % z and zDot
 
     Control T M1 M2 M3;                                           % Thrust
 
@@ -65,8 +65,7 @@ BEGIN_ACADO;
                                                             % the differential equation and
                                                             % an output function
     
-    % process = acado.Process(dynamicSystem, 'INT_RK45');
-    process = acado.Process(dynamicSystem, 'INT_RK45');     % Simulates the process to be 
+    process = acado.Process(dynamicSystem, 'INT_RK78');     % Simulates the process to be 
                                                             % controlled based on 
                                                             % a dynamic model
 
@@ -83,7 +82,7 @@ BEGIN_ACADO;
         5.0       0.00
         5.01      0.00
         6.0       0.00];
-%    load('disturbance.mat');
+    % load('disturbance.mat');
 
     process.setProcessDisturbance(disturbance);         % Set the process disturbances
 
@@ -98,13 +97,14 @@ BEGIN_ACADO;
 
     algo.set('MAX_NUM_ITERATIONS', 2 );                % Set some algorithm parameters
 
-    % algo.set( 'HESSIAN_APPROXIMATION', 'GAUSS_NEWTON' );
+    %algo.set( 'HESSIAN_APPROXIMATION', 'GAUSS_NEWTON' );
     
-    algo.set('INTEGRATOR_TYPE', 'INT_RK45');
-    % algo.set('INTEGRATOR_TYPE', 'INT_RK78');
+    algo.set('INTEGRATOR_TYPE', 'INT_BDF');
     algo.set( 'INTEGRATOR_TOLERANCE',   1e-5);    
     algo.set( 'ABSOLUTE_TOLERANCE',     1e-4 );
-
+    algo.set( 'MAX_NUM_INTEGRATOR_STEPS',  1e6);
+    % algo.set( 'MAX_STEPSIZE', 1e3);
+    
     load ref.mat;
     
     reference = acado.PeriodicReferenceTrajectory(r);    % Allows to define a static reference trajectory that 
@@ -121,7 +121,6 @@ BEGIN_ACADO;
 
     x0 = zeros(1,12);                                    % Initialize the states
     x0(1,3) = -0.3;
-    %x0(1,2) = 0;
 
     sim.init( x0 );
 
