@@ -1,1 +1,1 @@
-# quadrotor_mpc_controller
+Different MPC controllers with different scenarios for quadrotors.
