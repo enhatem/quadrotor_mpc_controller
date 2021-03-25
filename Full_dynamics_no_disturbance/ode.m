@@ -32,8 +32,9 @@ Ixx = 2.3951e-5;            % kg.m^2
 Iyy = 2.3951e-5; 
 Izz = 3.2347e-5;
 
-km = 1.858e-5;              % N.m.s^2
-kf = 0.005022;              % N.s^2
+%km = 1.858e-5;              % N.m.s^2
+%kf = 0.005022;              % N.s^2
+
 
 % Differential equation
 
@@ -43,9 +44,6 @@ dx(3) = Zd;
 dx(4) = -(sin(psi)*sin(phi) + cos(psi)*sin(theta)*cos(phi))*T/m;
 dx(5) = -(-cos(psi)*sin(phi) + sin(psi)*sin(theta)*cos(phi))*T/m;
 dx(6) = -cos(theta)*cos(phi)*T/m + g;
-% dx(7) = p + r*cos(phi)*tan(theta) + q*sin(phi)*tan(theta);
-% dx(8) = q*cos(phi) - r*sin(phi);
-% dx(9) = (r*cos(phi))/cos(theta) + (q*sin(phi))/cos(theta);
 dx(7) = p + q*(sin(phi)*tan(theta)) + r*(cos(phi)*tan(theta));
 dx(8) =     q*cos(phi) - r*sin(phi);
 dx(9) =     q*(sin(phi)*sec(theta)) + r*(cos(phi)*sec(theta));

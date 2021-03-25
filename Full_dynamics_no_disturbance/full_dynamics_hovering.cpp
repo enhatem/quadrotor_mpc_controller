@@ -336,12 +336,12 @@ void mexFunction( int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[] )
     OutputFcn acadodata_f3;
 
     DynamicSystem dynamicsystem1( acadodata_f1,acadodata_f3 );
-    Process process2( dynamicsystem1,INT_RK78 );
+    Process process2( dynamicsystem1,INT_RK45 );
     process2.setProcessDisturbance( acadodata_M2 );
 
     RealTimeAlgorithm algo1(ocp1, 0.5);
     algo1.set( MAX_NUM_ITERATIONS, 2 );
-    algo1.set( INTEGRATOR_TYPE, INT_BDF );
+    algo1.set( INTEGRATOR_TYPE, INT_RK45 );
     algo1.set( INTEGRATOR_TOLERANCE, 1.000000E-05 );
     algo1.set( ABSOLUTE_TOLERANCE, 1.000000E-04 );
     algo1.set( MAX_NUM_INTEGRATOR_STEPS, 1000000 );

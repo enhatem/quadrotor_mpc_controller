@@ -65,7 +65,7 @@ BEGIN_ACADO;
                                                             % the differential equation and
                                                             % an output function
     
-    process = acado.Process(dynamicSystem, 'INT_RK78');     % Simulates the process to be 
+    process = acado.Process(dynamicSystem, 'INT_RK45');     % Simulates the process to be 
                                                             % controlled based on 
                                                             % a dynamic model
 
@@ -90,7 +90,7 @@ BEGIN_ACADO;
 
     %% SETTING UP THE MPC CONTROLLER
 
-    algo = acado.RealTimeAlgorithm(ocp, 0.5);         % The class RealTimeAlgorithm serves as a user-interface 
+    algo = acado.RealTimeAlgorithm(ocp, 0.02);         % The class RealTimeAlgorithm serves as a user-interface 
                                                        % to formulate and solve model predictive control problems.
 
 
@@ -99,7 +99,7 @@ BEGIN_ACADO;
 
     %algo.set( 'HESSIAN_APPROXIMATION', 'GAUSS_NEWTON' );
     
-    algo.set('INTEGRATOR_TYPE', 'INT_BDF');
+    algo.set('INTEGRATOR_TYPE', 'INT_RK45');
     algo.set( 'INTEGRATOR_TOLERANCE',   1e-5);    
     algo.set( 'ABSOLUTE_TOLERANCE',     1e-4 );
     algo.set( 'MAX_NUM_INTEGRATOR_STEPS',  1e6);
